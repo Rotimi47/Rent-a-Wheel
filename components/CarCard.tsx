@@ -16,11 +16,15 @@ const CarCard = ({ car }: CarCardProps) => {
   const {city_mpg, year, fuel_type, make, model, transmission, drive } = car;
 
   const [isOpen, setIsOpen] = useState(false);
+  const [showButtonMobile, setShowButtonMobile] = useState(false);
 
   const carRent = calculateCarRent(city_mpg, year);
 
   return (
-    <div className="car-card group">
+    <div 
+    className="car-card group relative cursor-pointer"
+     onClick={() => setShowButtonMobile((prev) => !prev)} // toggle state on mobile
+     >
       <div className="car-card__content">
         <h2 className="car-card__content-title">
           {make} {model}
@@ -55,7 +59,9 @@ const CarCard = ({ car }: CarCardProps) => {
           </div>
         </div>
 
-        <div className="car-card__btn-container">
+        <div 
+        className={`car-card__btn-container
+          ${showButtonMobile ? "flex" : "hidden"}`}>
           <CustomButton
             title='View More'
             containerStyles='w-full py-[16px] rounded-full bg-[#2B59FF]'
